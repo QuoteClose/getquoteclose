@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QuoteClose | Turn Open Quotes Into Revenue</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #1a2744;
+    --navy-light: #243358;
+    --teal: #3dbfa8;
+    --teal-dark: #2fa090;
+    --white: #ffffff;
+    --off-white: #f4f6f9;
+    --gray: #6b7a99;
+    --gray-light: #e8ecf3;
+    --text: #1a2744;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Barlow', sans-serif;
+    color: var(--text);
+    background: var(--white);
+    overflow-x: hidden;
+  }
+
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(26, 39, 68, 0.97);
+    backdrop-filter: blur(8px);
+    padding: 0 40px;
+    height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+  }
+
+  .nav-logo-icon {
+    width: 40px;
+    height: 40px;
+    border: 2.5px solid var(--teal);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .nav-logo-icon::after {
+    content: '✓';
+    color: var(--teal);
+    font-size: 20px;
+    font-weight: 900;
+    line-height: 1;
+  }
+
+  .nav-logo-text {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    line-height: 1;
+  }
+
+  .nav-logo-text .w { color: var(--white); }
+  .nav-logo-text .t { color: var(--teal); }
+
+  .nav-logo-sub {
+    font-family: 'Barlow', sans-serif;
+    font-size: 10px;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.03em;
+    margin-top: 2px;
+  }
+
+  .nav-cta {
+    background: var(--teal);
+    color: var(--white);
+    text-decoration: none;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 9px 22px;
+    border-radius: 4px;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+
+  .nav-cta:hover { background: var(--teal-dark); }
+
+  .hero {
+    min-height: 100vh;
+    background: var(--navy);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 40px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(61,191,168,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -100px; left: -100px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(61,191,168,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    max-width: 860px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .hero-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 24px;
+  }
+
+  .hero h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(48px, 8vw, 84px);
+    font-weight: 800;
+    line-height: 1.0;
+    color: var(--white);
+    margin-bottom: 28px;
+    letter-spacing: -0.01em;
+  }
+
+  .hero h1 span { color: var(--teal); }
+
+  .hero-sub {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.65;
+    color: rgba(255,255,255,0.72);
+    max-width: 620px;
+    margin: 0 auto 44px;
+  }
+
+  .hero-cta {
+    display: inline-block;
+    background: var(--teal);
+    color: var(--white);
+    text-decoration: none;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 16px 40px;
+    border-radius: 5px;
+    transition: background 0.2s, transform 0.15s;
+    box-shadow: 0 4px 24px rgba(61,191,168,0.3);
+  }
+
+  .hero-cta:hover {
+    background: var(--teal-dark);
+    transform: translateY(-2px);
+  }
+
+  .hero-note {
+    margin-top: 16px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.4);
+  }
+
+  .stat-bar {
+    background: var(--teal);
+    padding: 36px 40px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .stat-item {
+    text-align: center;
+    padding: 0 48px;
+    border-right: 1px solid rgba(255,255,255,0.25);
+  }
+
+  .stat-item:last-child { border-right: none; }
+
+  .stat-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 42px;
+    font-weight: 800;
+    color: var(--white);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 13px;
+    color: rgba(255,255,255,1);
+    margin-top: 4px;
+    max-width: 140px;
+    font-weight: 600;
+  }
+
+  .section { padding: 96px 40px; }
+
+  .section-inner {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 16px;
+  }
+
+  .section h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(34px, 5vw, 52px);
+    font-weight: 800;
+    line-height: 1.08;
+    color: var(--navy);
+    margin-bottom: 24px;
+  }
+
+  .section p {
+    font-size: 17px;
+    line-height: 1.7;
+    color: #4a5a7a;
+    max-width: 680px;
+    margin-bottom: 20px;
+  }
+
+  .not-crm {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--navy);
+    border-left: 4px solid var(--teal);
+    padding: 12px 20px;
+    margin-top: 32px;
+    margin-bottom: 0;
+    max-width: 680px;
+    background: var(--off-white);
+  }
+
+  .problem-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+    margin-top: 48px;
+  }
+
+  .problem-card {
+    background: var(--off-white);
+    border-left: 4px solid var(--teal);
+    padding: 28px 28px 28px 24px;
+    border-radius: 0 8px 8px 0;
+  }
+
+  .problem-card h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 10px;
+  }
+
+  .problem-card p {
+    font-size: 15px;
+    color: var(--gray);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .how-section {
+    background: var(--navy);
+    padding: 96px 40px;
+  }
+
+  .how-section .section-label { color: var(--teal); }
+
+  .how-section h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(34px, 5vw, 52px);
+    font-weight: 800;
+    color: var(--white);
+    margin-bottom: 60px;
+  }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 40px;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .step-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 64px;
+    font-weight: 800;
+    color: rgba(61,191,168,0.18);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .step h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 10px;
+  }
+
+  .step p {
+    font-size: 15px;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.65;
+  }
+
+  .who-section { background: var(--off-white); padding: 96px 40px; }
+
+  .who-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .who-list {
+    list-style: none;
+    margin-top: 32px;
+  }
+
+  .who-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--gray-light);
+    font-size: 16px;
+    color: #3a4a6a;
+    line-height: 1.5;
+  }
+
+  .who-list li::before {
+    content: '✓';
+    color: var(--teal);
+    font-weight: 700;
+    font-size: 16px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .who-right {
+    background: var(--navy);
+    border-radius: 12px;
+    padding: 44px 40px;
+  }
+
+  .who-right h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+
+  .who-right .tagline {
+    color: var(--teal);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .who-right p {
+    font-size: 15px;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.7;
+  }
+
+  .cta-section {
+    padding: 100px 40px;
+    text-align: center;
+    background: var(--white);
+  }
+
+  .cta-section h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(36px, 6vw, 60px);
+    font-weight: 800;
+    color: var(--navy);
+    margin-bottom: 20px;
+    line-height: 1.05;
+  }
+
+  .cta-section h2 span { color: var(--teal); }
+
+  .cta-section p {
+    font-size: 17px;
+    color: var(--gray);
+    max-width: 520px;
+    margin: 0 auto 40px;
+    line-height: 1.65;
+  }
+
+  .cta-big {
+    display: inline-block;
+    background: var(--navy);
+    color: var(--white);
+    text-decoration: none;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 18px 48px;
+    border-radius: 5px;
+    transition: background 0.2s, transform 0.15s;
+  }
+
+  .cta-big:hover {
+    background: var(--navy-light);
+    transform: translateY(-2px);
+  }
+
+  .cta-fine {
+    margin-top: 14px;
+    font-size: 13px;
+    color: #aab;
+  }
+
+  footer {
+    background: var(--navy);
+    padding: 36px 40px;
+    text-align: center;
+  }
+
+  .footer-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .footer-logo-icon {
+    width: 34px;
+    height: 34px;
+    border: 2px solid rgba(61,191,168,0.6);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .footer-logo-icon::after {
+    content: '✓';
+    color: var(--teal);
+    font-size: 16px;
+    font-weight: 900;
+  }
+
+  .footer-logo-text {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+  }
+
+  .footer-logo-text .w { color: rgba(255,255,255,0.7); }
+  .footer-logo-text .t { color: rgba(61,191,168,0.7); }
+
+  footer p {
+    font-size: 13px;
+    color: rgba(255,255,255,0.4);
+  }
+
+  footer a {
+    color: rgba(255,255,255,0.4);
+    text-decoration: none;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-up {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 700px) {
+    nav { padding: 0 20px; }
+    .nav-logo-sub { display: none; }
+    .section, .how-section, .who-section, .cta-section { padding: 64px 24px; }
+    .stat-bar { padding: 32px 24px; }
+    .stat-item { padding: 0 24px; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 24px; }
+    .stat-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .who-grid { grid-template-columns: 1fr; }
+    .hero { padding: 100px 24px 64px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">
+    <div class="nav-logo-icon"></div>
+    <div>
+      <div class="nav-logo-text"><span class="w">Quote</span><span class="t">Close</span></div>
+      <div class="nav-logo-sub">Turn open quotes into revenue.</div>
+    </div>
+  </a>
+  <a href="#schedule" class="nav-cta">Schedule Free Call</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Built for Machine Shops &amp; Fabricators</div>
+    <h1>Close more of the<br>work you're already<br><span>quoting.</span></h1>
+    <p class="hero-sub">Most shops quote the work. Few have a system to close it. QuoteClose installs a follow-up process that recovers revenue sitting in your open quote log — without adding headcount or new software.</p>
+    <a href="#schedule" class="hero-cta">See Where Your Revenue Is Leaking — Free</a>
+    <p class="hero-note">30-minute call. No pitch. Just a straight look at your numbers.</p>
+  </div>
+</section>
+
+<div class="stat-bar">
+  <div class="stat-item">
+    <div class="stat-num">~30%</div>
+    <div class="stat-label">Average quote-to-win rate in manufacturing</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">44%</div>
+    <div class="stat-label">Of reps give up after just one follow-up</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">5–8×</div>
+    <div class="stat-label">Cost to win new work vs. close existing quotes</div>
+  </div>
+</div>
+
+<section class="section">
+  <div class="section-inner">
+    <div class="section-label fade-up">The Problem</div>
+    <h2 class="fade-up">Revenue is sitting in your open quote log right now.</h2>
+    <p class="fade-up">You spent time building the quote. The customer asked for it. Then nothing. You followed up once, maybe twice — and moved on.</p>
+    <p class="fade-up">That pattern costs manufacturing businesses tens of thousands in recoverable revenue every quarter. The jobs are already priced. The relationships are already warm. The only thing missing is a system.</p>
+    <p class="not-crm fade-up">QuoteClose is not a CRM. Not a quoting tool. Not another software subscription. It's a sales process installed directly into how your shop operates.</p>
+    <div class="problem-grid">
+      <div class="problem-card fade-up">
+        <h3>No follow-up cadence</h3>
+        <p>Quotes go out and disappear. There's no structured process for who follows up, when, and what they say.</p>
+      </div>
+      <div class="problem-card fade-up">
+        <h3>Owner doing everything</h3>
+        <p>Sales falls on the person running the shop. When capacity gets tight, follow-up is the first thing that drops.</p>
+      </div>
+      <div class="problem-card fade-up">
+        <h3>No visibility into why you lose</h3>
+        <p>When a quote dies, you rarely know if it was price, timing, relationship, or something fixable.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="how-section">
+  <div style="max-width:960px;margin:0 auto;">
+    <div class="section-label">How It Works</div>
+    <h2>A process that runs whether you're on the floor or on the road.</h2>
+    <div class="steps">
+      <div class="step fade-up">
+        <div class="step-num">01</div>
+        <h3>Audit your current quote flow</h3>
+        <p>We start by understanding exactly what happens to a quote from the moment it leaves your shop — and where it's dying.</p>
+      </div>
+      <div class="step fade-up">
+        <div class="step-num">02</div>
+        <h3>Build your closing system</h3>
+        <p>A structured follow-up cadence, messaging that works for your customers, and clear ownership of every open quote.</p>
+      </div>
+      <div class="step fade-up">
+        <div class="step-num">03</div>
+        <h3>Install and train in weeks, not months</h3>
+        <p>We work with your existing team and tools. No enterprise software. No long implementation cycles.</p>
+      </div>
+      <div class="step fade-up">
+        <div class="step-num">04</div>
+        <h3>Measure what changes</h3>
+        <p>Quote-to-win rate. Revenue recovered. Follow-up completion. You see exactly what's moving.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="who-section">
+  <div class="who-grid">
+    <div class="fade-up">
+      <div class="section-label">Who This Is For</div>
+      <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:clamp(30px,4vw,44px);font-weight:800;color:var(--navy);margin-bottom:8px;">Built for shops that are serious about growth.</h2>
+      <ul class="who-list">
+        <li>Machine shops and fabricators with 5–25 employees</li>
+        <li>Quoting $500K–$5M+ in work annually</li>
+        <li>Owner-led or with a small sales function</li>
+        <li>Already have customers — need to close more of what they're quoting</li>
+        <li>Not looking for a software tool — looking for a system that works</li>
+      </ul>
+    </div>
+    <div class="who-right fade-up">
+      <div class="tagline">About QuoteClose</div>
+      <h3>25+ years in the room where sales gets done.</h3>
+      <p>QuoteClose was founded by a sales leader who has spent a career building high-performance quoting and closing operations in industrial and manufacturing environments. Not theory — pattern recognition from running these exact processes at scale.</p>
+      <p style="margin-top:16px;">The insight is simple: most small manufacturers are excellent at their craft and underinvested in the commercial side. That gap is fixable, and the return is immediate.</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section" id="schedule">
+  <div class="fade-up">
+    <div class="section-label" style="text-align:center;">Get Started</div>
+    <h2>Stop leaving<br><span>closed jobs on the table.</span></h2>
+    <p>30 minutes. No obligation. We'll look at your current quoting process and tell you exactly where revenue is slipping through.</p>
+    <a href="PASTE_YOUR_CALENDLY_LINK_HERE" class="cta-big">See Where Your Revenue Is Leaking — Free</a>
+    <p class="cta-fine">Free 30-minute consultation · No obligation</p>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">
+    <div class="footer-logo-icon"></div>
+    <div class="footer-logo-text"><span class="w">Quote</span><span class="t">Close</span></div>
+  </div>
+  <p>© 2026 QuoteClose LLC · West Chester, PA · <a href="mailto:christopher@getquoteclose.com">christopher@getquoteclose.com</a></p>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(el => {
+      if (el.isIntersecting) el.target.classList.add('visible');
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
